@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Carnés QR</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 1rem; color: #111; background: #fff; }
+    .bar { margin-bottom: 1rem; display: flex; gap: .5rem; align-items: center; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fill, 85.6mm); gap: 6mm; }
+    .card { width: 85.6mm; height: 54mm; border: 1px solid #999; border-radius: 3mm; padding: 3mm; display: flex; gap: 3mm; box-sizing: border-box; break-inside: avoid; }
+    .card img { width: 40mm; height: 40mm; align-self: center; }
+    .info { display: flex; flex-direction: column; justify-content: space-between; min-width: 0; }
+    .school { font-size: 8pt; font-weight: 700; color: #1d4ed8; text-transform: uppercase; }
+    .name { font-size: 11pt; font-weight: 700; line-height: 1.15; }
+    .meta { font-size: 8.5pt; color: #444; }
+    .portal { font-size: 6.5pt; color: #666; word-break: break-all; }
+    button { padding: .5rem 1rem; font: inherit; cursor: pointer; }
+    @media print { .bar { display: none; } body { margin: 0; } @page { margin: 10mm; } }
+  </style>
+</head>
+<body>
+  <div class="bar"><button onclick="window.print()">🖨 Imprimir</button><span id="msg"></span></div>
+  <div class="cards" id="cards"></div>
+  <script>
+    const esc = (v) => String(v ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    fetch('/api/qr-cards' + location.search, { credentials: 'same-origin' })
+      .then((r) => r.json().then((d) => { if (!r.ok) throw new Error(d.error); return d; }))
+      .then((d) => {
+        document.getElementById('msg').textContent = `${d.cards.length} carné(s)`;
+        document.getElementById('cards').innerHTML = d.cards.map((c) => `
+          <div class="card">
+            <img src="${c.qr}" alt="QR">
+            <div class="info">
+              <div class="school">${esc(d.school_name)}</div>
+              <div><div class="name">${esc(c.name)}</div>
+              <div class="meta">${esc(c.grade)} "${esc(c.section)}"${c.document_id ? '<br>Doc. ' + esc(c.document_id) : ''}</div></div>
+              <div class="portal">Portal padres:<br>${esc(c.portal_url)}</div>
+            </div>
+          </div>`).join('');
+      })
+      .catch((e) => { document.getElementById('msg').textContent = 'Error: ' + e.message; });
+  </script>
+</body>
+</html>

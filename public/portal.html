@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <title>Portal de padres y alumnos</title>
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    .portal { max-width: 860px; margin: 0 auto; padding: 1rem; }
+    .hero { background: var(--primary); color: #fff; padding: 1.25rem 1rem; }
+    .hero h1 { margin: 0; } .hero p { margin: .25rem 0 0; color: #dbeafe; }
+  </style>
+</head>
+<body>
+  <div class="hero"><div class="portal" style="padding:0">
+    <h1 id="school">Portal de padres y alumnos</h1>
+    <p id="who"></p>
+  </div></div>
+  <div class="portal stack" id="app">
+    <form id="code-form" class="card hidden">
+      <label>Código de acceso del alumno<input name="c" required autocomplete="off" style="text-transform:uppercase"></label>
+      <button class="btn primary" type="submit" style="margin-top:.75rem">Ingresar</button>
+    </form>
+  </div>
+  <script src="/portal.js"></script>
+</body>
+</html>

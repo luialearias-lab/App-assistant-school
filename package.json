@@ -1,0 +1,22 @@
+{
+  "name": "app-assistant-school",
+  "version": "1.0.0",
+  "description": "Aplicación web de asistencia escolar con QR, notificaciones por WhatsApp a padres, récord mensual y envío de tareas/comentarios.",
+  "main": "src/server.js",
+  "private": true,
+  "engines": {
+    "node": ">=22.13"
+  },
+  "scripts": {
+    "start": "node --env-file-if-exists=.env --no-warnings=ExperimentalWarning src/server.js",
+    "dev": "node --env-file-if-exists=.env --no-warnings=ExperimentalWarning --watch src/server.js",
+    "seed": "node --env-file-if-exists=.env --no-warnings=ExperimentalWarning scripts/seed.js",
+    "test": "node --no-warnings=ExperimentalWarning --test test/*.test.js"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "express": "^5.1.0",
+    "html5-qrcode": "^2.3.8",
+    "qrcode": "^1.5.4"
+  }
+}

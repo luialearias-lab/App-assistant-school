@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1d4ed8">
+  <title>Asistencia Escolar QR</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div id="login" class="login hidden">
+    <form id="login-form" class="card login-card">
+      <h1>🎓 Asistencia Escolar</h1>
+      <p class="muted">Ingrese con su cuenta de docente o administrador</p>
+      <label>Correo<input type="email" name="email" required autocomplete="username"></label>
+      <label>Contraseña<input type="password" name="password" required autocomplete="current-password"></label>
+      <p id="login-error" class="error"></p>
+      <button class="btn primary block" type="submit">Ingresar</button>
+      <p class="muted small center">¿Es padre/madre o alumno? Use el enlace del portal que le envió el colegio.</p>
+    </form>
+  </div>
+
+  <div id="shell" class="shell hidden">
+    <header class="topbar">
+      <button id="menu-btn" class="icon-btn" aria-label="Menú">☰</button>
+      <span id="school-name" class="brand">Asistencia Escolar</span>
+      <span class="spacer"></span>
+      <span id="user-name" class="muted small"></span>
+      <button id="logout-btn" class="btn ghost small">Salir</button>
+    </header>
+    <nav id="nav" class="nav">
+      <a href="#/" data-route="">🏠 Panel del día</a>
+      <a href="#/asistencia" data-route="asistencia">📷 Tomar asistencia</a>
+      <a href="#/record" data-route="record">📊 Récord mensual</a>
+      <a href="#/mensajes" data-route="mensajes">✉️ Tareas y comentarios</a>
+      <a href="#/alumnos" data-route="alumnos">👨‍🎓 Alumnos</a>
+      <a href="#/notificaciones" data-route="notificaciones">💬 Notificaciones WhatsApp</a>
+      <a href="#/estructura" data-route="estructura" class="admin-only">🏫 Grados, secciones y cursos</a>
+      <a href="#/usuarios" data-route="usuarios" class="admin-only">👥 Usuarios</a>
+      <a href="#/config" data-route="config" class="admin-only">⚙️ Configuración</a>
+      <a href="#/cuenta" data-route="cuenta">🔑 Mi cuenta</a>
+    </nav>
+    <main id="view" class="view"></main>
+  </div>
+
+  <div id="modal" class="modal hidden" role="dialog" aria-modal="true">
+    <div class="modal-box card">
+      <div class="modal-head"><h2 id="modal-title"></h2><button class="icon-btn" data-close aria-label="Cerrar">✕</button></div>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="/vendor/html5-qrcode.min.js"></script>
+  <script src="/app.js"></script>
+</body>
+</html>
